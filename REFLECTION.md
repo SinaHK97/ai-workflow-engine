@@ -1,7 +1,3 @@
-## Trade-offs Made
-
-# 
-
 ## 1. Database & Storage Considerations
 
 Although this project focuses on abstractions rather than implementation, a real system would require multiple storage layers, each optimized for a specific workload.
@@ -188,61 +184,21 @@ These decisions favor clarity and maintainability over maximum expressiveness.
 A comprehensive testing approach would include:
 
 * **Unit tests**
+
   * Step handlers
   * Placeholder resolution
 * **Integration tests**
+
   * End-to-end workflow execution with mocks
 * **Validation tests**
+
   * Invalid workflow definitions
 * **Load tests**
+
   * Concurrent executions
   * Large knowledge collections
 
----
-
-## 10. Use of AI Tools
-
-AI tools were used for:
-
-* Brainstorming system structure
-* Refining abstractions
-* Improving clarity and documentation quality
-
-All outputs were reviewed and validated to ensure correctness and consistency with the design goals.
-
-* Chose **linear execution with conditional jumps** instead of a full DAG to reduce complexity.
-* Used **schema-light metadata** for knowledge objects to allow flexibility.
-* Prioritized **immutability and versioning** over in-place updates.
-
----
-
-## Improvements With More Time
-
-* Add async execution and retries.
-* Introduce workflow visual validation.
-* Add human-in-the-loop approval steps.
-* Implement loop detection and execution limits.
-
----
-
-## Testing Strategy
-
-* **Unit tests**
-  * Step handlers
-  * Template resolution
-* **Integration tests**
-  * Full workflow execution with mock services
-* **Validation tests**
-  * Invalid workflows
-  * Missing references
-* **Load tests**
-  * Concurrent executions
-  * Large knowledge collections
-
----
-
-
-## Integration with Agent-to-UI Frameworks (e.g. Google A2UI)
+## 10. Integration with Agent-to-UI Frameworks (e.g. Google A2UI)
 
 While the scope of this project is focused on backend abstractions, the design intentionally supports integration with agent-to-UI frameworks such as **Google’s A2UI**.
 
@@ -258,7 +214,7 @@ This separation preserves:
 
 The integration is optional and does not affect the core execution model, reinforcing the system’s flexibility without introducing additional coupling or complexity.
 
-## Use of AI Tools
+## 11. Use of AI Tools
 
 AI tools were used to:
 
