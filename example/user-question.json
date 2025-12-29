@@ -1,0 +1,48 @@
+{
+  "workflow_id": "wf_policy",
+  "version": 1,
+  "entry_step": "s01_rag",
+  "steps": [
+    {
+      "step_id": "s01_rag",
+      "step_type": "RAG",
+      "label": "Retrieve policy documents",
+      "params": {
+        "collection_id": "policies_collection",
+        "query": "{{ input.question }}",
+        "top_k": 5
+      },
+      "next_step": "s02_llm"
+    },
+    {
+      "step_id": "s02_llm",
+      "step_type": "LLM",
+      "label": "Generate answer from retrieved chunks",
+      "params": {
+        "model": "gpt-4",
+        "prompt_template": "Answer the question using the context below.\n\nContext:\n{{ steps.s01_rag.chunks }}\n\nQuestion:\n{{ input.question }}",
+        "temperature": 0.2
+      },
+      "next_step": "s03_condition"
+    },
+    {
+      "step_id": "s03_condition",
+      "step_type": "CONDITION",
+      "label": "Check answer confidence",
+      "params": {
+        "expression": "{{ steps.s02_llm.confidence }} < 0.6",
+        "if_true": "s04_fallback",
+        "if_false": null
+      }
+    },
+    {
+      "step_id": "s04_fallback",
+      "step_type": "LLM",
+      "label": "Fallback response",
+      "params": {
+        "model": "gpt-4",
+        "prompt_template": "Generate a failure message for user based on this question {{ input.question }}."
+      }
+    }
+  ]
+}
